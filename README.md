@@ -19,5 +19,6 @@ With the socket and threading library u can send and recieve messages, the messa
 
 Before sending the message the thread will zipped with other import information like who will recieve it, who send it, some special tags... and when the other threads recieve the message they will unzip the message to understand what to do
 
-![s2](https://user-images.githubusercontent.com/33929967/65261586-e6ce1e80-db08-11e9-92da-91b30b0ae600.png)
+![s2](https://user-images.githubusercontent.com/33929967/65261710-1f6df800-db09-11e9-807c-47f48dce5398.png)
+
 
