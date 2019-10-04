@@ -1,6 +1,7 @@
 import socket
 import threading
 import sys
+import datetime
 
 class Client:		
 	def __init__(self, adress):
@@ -73,7 +74,10 @@ class Client:
 	
 	def zip(self, to, msg, tag=None):
 		#WE WILL ZIP ALL MESSAGE INFORMATION INTO A PACKET
-		packet = 'name:'
+		now = datetime.datetime.now()
+		packet = ''
+		
+		packet += 'name:'
 		if self.name:
 			packet += self.name
 		packet += ',msg:' 		#the message
@@ -88,6 +92,8 @@ class Client:
 		packet += ',tag:'		#we can include a tag for special functions
 		if tag:
 			packet += tag
+		packet += ',time:'		#we will include the hour of sending
+		packet += self.beauty(now.hour) + ':' + self.beauty(now.minute)
 		return packet
 		
 	def recvMsg(self, data):
@@ -105,6 +111,7 @@ class Client:
 		ip_send = data[2][3:]
 		ip_recv = data[3][3:]
 		tag = data[4][4:]
+		time = data[5][5:]
 		
 		if 'names' in tag:
 			#THIS TAG MEANS WE HAVE BEEN REQUIRED OUR NAME OR IP, SO WE SEND IT TO WHO HAS DONE THE REQUEST
@@ -116,6 +123,9 @@ class Client:
 			#THIS TAG MEANS WE ARE RECIEVING A NAME INFO IF WE ARE THE PERSON WHO ASKED WE PRINT INFO
 			if self.myIp in ip_recv:
 						print('\t', msg)
+		elif 'clear' in tag:
+			#RECIEVER DOES NOTHING
+			return ''
 		else:
 			#IF ITS A NORMAL MESSAGE WE SIMPLY BUILD IT WITH SENDER NAME AND MESSAGE
 			if ip_recv not in 'all':			#if the message is not for us we dont print it
@@ -124,15 +134,20 @@ class Client:
 						return
 
 			if self.myIp in ip_send:			#if we send it we'll put us as sender
-				packet = '<You> '
+				packet = '<You ' + time + '> '
 			else:								#if was another person we'll put his name or ip
 				if name is not '':
-					packet = '<' + name + '> '
+					packet = '<' + name + ' ' + time + '> '
 				else:
-					packet = '<' + ip_send + '> '
+					packet = '<' + ip_send + ' ' + time + '> '
 			packet += msg						#we add the message
 			return packet
 	
+	def beauty(self, num):
+		if num < 10:
+			return '0' + str(num)
+		else:
+			return str(num)
 
 class Server:
 	def __init__(self):
