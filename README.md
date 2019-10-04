@@ -12,7 +12,8 @@ Program that creates a chat server within a domestic connection
 # Prerequisits
 
 - python version 3 or newer
- guide to install python: https://www.youtube.com/watch?v=OV9WlTd9a2U
+
+guide to install python: https://www.youtube.com/watch?v=OV9WlTd9a2U
 
 # Load the program
 
