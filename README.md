@@ -17,7 +17,10 @@ guide to install python: https://www.youtube.com/watch?v=OV9WlTd9a2U
 
 # Load the program
 
-First use the console to navigate to the folder where the scripts are, then you have to create the server executing the program > `python server.py` or `python3 server.py` depending on your version, then you have to check the IP of the server/computer, to connect to that IP, when you know the IP change the variable SERVER_IP in `client.py`, then execute the program from any computer console in the network and execute > `python client.py` or `python3 client.py` depending on your version, you can connect as many computers as you desire
+ 1. Execute `server.py` from the main computer
+ 2. Find the IP of that computer
+ 3. In `client.py` change the SERVER-IP variable to the one found in step 2
+ 4. Execute `client.py` from other computers including the main one if you want
 
 # How it works
 
